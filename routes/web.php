@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/sso', 'SsoController@index')->name('sso');
+
+Route::get('/farm', 'SsoController@index')->name('farm');

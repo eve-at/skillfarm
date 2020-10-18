@@ -14,6 +14,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'eve_app_id' => env('APP_EVE_CLIENT_ID'),
+    'eve_app_secret' => env('APP_EVE_SECRET_KEY'),
+    'eve_app_scopes' => env('APP_EVE_SCOPES'),
 
     /*
     |--------------------------------------------------------------------------
