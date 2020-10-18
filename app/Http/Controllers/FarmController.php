@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Character;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FarmController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +16,11 @@ class FarmController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $characters = Character::where('user_id', Auth::id())
+            ->orderBy('owner')
+            ->orderBy('name')
+            ->get();
+
+        return view('farm', compact('characters'));
     }
 }
