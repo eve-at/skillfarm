@@ -21,7 +21,7 @@ class CreateCharactersTable extends Migration
             $table->string('owner')->nullable();
             $table->string('name')->nullable();
             $table->string('refresh_token')->nullable();
-            $table->string('access_token')->nullable();
+            $table->string('token')->nullable();
             $table->string('expires_in')->nullable();
             $table->timestamps();
 

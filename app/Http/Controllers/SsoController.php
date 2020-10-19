@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Character;
-use App\Token;
+use App\Library\Sso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use jbs1\OAuth2\Client\Provider\EveOnline;
 use Mockery\Exception;
 
 class SsoController extends Controller
@@ -18,11 +17,7 @@ class SsoController extends Controller
             throw new Exception("Eve Authentication Failed");
         }
 
-        $provider = new EveOnline([
-            'clientId'                => config('app.eve_app_id'),
-            'clientSecret'            => config('app.eve_app_secret'),
-            'redirectUri'             => route("sso"),
-        ]);
+        $provider = Sso::provider();
 
         try {
             // Try to get an access token using the authorization code grant.
@@ -39,7 +34,7 @@ class SsoController extends Controller
             ]);
             $character->user_id = Auth::id();
             $character->owner = $owner->getCharacterOwnerHash();
-            $character->access_token = $accessToken->getToken();
+            $character->token = $accessToken->getToken();
             $character->refresh_token = $accessToken->getRefreshToken();
             $character->expires_in = $accessToken->getExpires();
             $character->save();
