@@ -17,14 +17,16 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
             $table->bigInteger('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('owner');
-            $table->string('name');
-            $table->string('refresh_token');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('owner')->nullable();
+            $table->string('name')->nullable();
+            $table->string('refresh_token')->nullable();
+            $table->string('access_token')->nullable();
+            $table->string('expires_in')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(['id', 'user_id']);
+            $table->primary('id');
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Character extends Model
 {
+    public $incrementing = false;
     protected $skillpoints;
     protected $spPerExtractor = 500000;
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Character;
+use App\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use jbs1\OAuth2\Client\Provider\EveOnline;
@@ -29,21 +30,19 @@ class SsoController extends Controller
                 'code' => $authCode,
             ]);
 
-            echo 'Access Token: ' . $accessToken->getToken() . "<br>";
-            echo 'Refresh Token: ' . $accessToken->getRefreshToken() . "<br>";
-            echo 'Expired in: ' . $accessToken->getExpires() . "<br>";
-            echo 'Already expired? ' . ($accessToken->hasExpired() ? 'expired' : 'not expired') . "<br>";
-
             $owner = $provider->getResourceOwner($accessToken);
 
-            Character::firstOrCreate([
+            $character = Character::firstOrCreate([
                 'id' => $owner->getCharacterID(),
-                'user_id' => Auth::id(),
             ], [
                 'name' => $owner->getCharacterName(),
-                'owner' => $owner->getCharacterOwnerHash(),
-                'refresh_token' => $accessToken->getToken(),
             ]);
+            $character->user_id = Auth::id();
+            $character->owner = $owner->getCharacterOwnerHash();
+            $character->access_token = $accessToken->getToken();
+            $character->refresh_token = $accessToken->getRefreshToken();
+            $character->expires_in = $accessToken->getExpires();
+            $character->save();
 
             return redirect()->route('farm', ['#character' . $owner->getCharacterID()]);
         } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
@@ -53,9 +52,5 @@ class SsoController extends Controller
                 'message' => $e->getMessage()
             ])->setStatusCode(401); // 401 Not Unauthorized
         }
-
-//
-
-        return redirect()->route('index');
     }
 }

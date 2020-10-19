@@ -22,8 +22,8 @@
                         </thead>
                         <tbody>
                             @foreach ($characters as $character)
-                                <tr>
-                                    <td><img src="https://images.evetech.net/characters/91906563/portrait?tenant=tranquility&size=32" width="32" height="32" alt="{{ $character->name }}"></td>
+                                <tr id="character{{ $character->id }}">
+                                    <td><img src="https://images.evetech.net/characters/{{ $character->id }}/portrait?tenant=tranquility&size=32" width="32" height="32" alt="{{ $character->name }}"></td>
                                     <td>{{ $character->name }}</td>
                                     <td>{{ $character->owner }}</td>
                                     <td>{{ $character->extractors() }}</td>
