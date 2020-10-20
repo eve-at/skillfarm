@@ -48,16 +48,6 @@ class Character extends Model
         return $this->token;
     }
 
-    public function skillpoints()
-    {
-        return Sso::characterSkillpoints($this);
-    }
-
-    public function skillpointsMin()
-    {
-        return 5500000;
-    }
-
     public function extractable()
     {
         //
@@ -69,6 +59,6 @@ class Character extends Model
     {
         //
 
-        return ceil(($this->skillpoints() - $this->skillpointsMin()) / $this->spPerExtractor);
+        return ceil(($this->skillpoints_total - $this->skillpoints_min) / $this->spPerExtractor);
     }
 }

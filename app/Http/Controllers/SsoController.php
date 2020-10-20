@@ -37,6 +37,7 @@ class SsoController extends Controller
             $character->token = $accessToken->getToken();
             $character->refresh_token = $accessToken->getRefreshToken();
             $character->expires_in = $accessToken->getExpires();
+            $character->skillpoints_total = Sso::characterSkillpoints($character);
             $character->save();
 
             return redirect()->route('farm', ['#character' . $owner->getCharacterID()]);
