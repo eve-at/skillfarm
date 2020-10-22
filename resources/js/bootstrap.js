@@ -20,8 +20,13 @@ try {
  */
 
 window.axios = require('axios');
+window.datepicker = require('bootstrap-datepicker');
+window.ClipboardJS = require('clipboard');
+window.tooltip = require('bootstrap-tooltip');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+window.datetimepicker = require('pc-bootstrap4-datetimepicker');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

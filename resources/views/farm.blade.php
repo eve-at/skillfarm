@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <table class="table table-dark table-striped table-hover table-sm">
+            <table class="farm-table table table-dark table-striped table-hover table-sm">
                 <thead>
                     <tr>
                         <th colspan="2">Character</th>
@@ -21,9 +21,9 @@
                     @foreach ($characters as $character)
                         <tr id="character{{ $character->id }}">
                             <td><img src="https://images.evetech.net/characters/{{ $character->id }}/portrait?tenant=tranquility&size=32" width="32" height="32" alt="{{ $character->name }}"></td>
-                            <td><input type="text" value="{{ $character->name }}" readonly></td>
-                            <td><input type="text" value="{{ $character->account }}"></td>
-                            <td><input type="date" value="{{ $character->paid_until }}"></td>
+                            <td class="autocopy js-autocopy" title="Copied!" data-clipboard-text="{{ $character->name }}"><span>{{ $character->name }}</span></td>
+                            <td><input type="text" value="{{ $character->account }}" onfocus="this.select();"></td>
+                            <td><input type="text" value="{{ $character->paid_until }}" data-provide="datepicker" data-date-format="M d, yyyy"></td>
                             <td>{{ $character->extractors() }}</td>
                             <td>{{ $character->skillpoints_total }}</td>
                             <td><input type="number" value="{{ $character->skillpoints_min }}" min="5500000" step="100000"></td>

@@ -1,0 +1,14 @@
+.farm-table {
+  input {
+    background-color: inherit;
+    border: none;
+    color: #fff;
+    &:active, &:focus {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+  .autocopy {
+    cursor: copy;
+  }
+}

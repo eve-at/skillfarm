@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./components/autocopy');
 
 window.Vue = require('vue');
 
